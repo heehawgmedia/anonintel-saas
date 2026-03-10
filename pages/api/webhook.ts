@@ -3,10 +3,7 @@ import Stripe from 'stripe';
 import { writeFile } from 'fs/promises';
 import { join } from 'path';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: '2024-06-20',
-  typescript: true,
-});
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
 // Simple local storage for events (in production, use a database)
 const EVENTS_LOG = join(process.cwd(), 'data', 'stripe-events.json');

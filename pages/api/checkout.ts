@@ -1,10 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import Stripe from 'stripe';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: '2024-06-20',
-  typescript: true,
-});
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
 // Price IDs (set these in your Stripe dashboard and .env)
 const PRICE_IDS = {

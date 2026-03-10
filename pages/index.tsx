@@ -1,6 +1,6 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 interface Particle {
   x: number;
@@ -692,7 +692,6 @@ const Home: NextPage = () => {
           <div className="max-w-4xl mx-auto">
             <div className="bg-gradient-to-br from-[#111] to-[#0a0a0a] border border-blue-900/30 rounded-2xl p-12 text-center relative overflow-hidden shadow-[0_0_60px_rgba(59,130,246,0.2)]">
               <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-emerald-500/5 to-blue-500/5" />
-              <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=\\"60\\" height=\\"60\\" viewBox=\\"0 0 60 60\\" xmlns=\\"http://www.w3.org/2000/svg\\"%3E%3Cg fill=\\"none\\" fill-rule=\\"evenodd\\"%3E%3Cg fill=\\"%2323c55e\\" fill-opacity=\\"0.03\\"%3E%3Cpath d=\\"M30 0l30 30-30 30L0 30z\\"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')]" />
               <div className="relative z-10">
                 <h2 className="text-4xl font-bold mb-4">
                   <span className="bg-gradient-to-r from-blue-400 to-emerald-400 bg-clip-text text-transparent">Join the Waitlist</span>
