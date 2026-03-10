@@ -18,7 +18,7 @@
 
 @layer utilities {
   .gradient-text {
-    @apply bg-gradient-to-r from-cyber-blue-400 via-cyber-green-400 to-cyber-blue-400 bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-cyber-blue-400 via-emerald-400 to-cyber-blue-400 bg-clip-text text-transparent;
     background-size: 200% auto;
     animation: gradient 3s ease infinite;
   }
@@ -39,6 +39,10 @@
     box-shadow: 0 0 20px rgba(59, 130, 246, 0.3), 0 0 40px rgba(34, 197, 94, 0.2);
   }
 
+  .cyber-glow-strong {
+    box-shadow: 0 0 30px rgba(59, 130, 246, 0.5), 0 0 60px rgba(34, 197, 94, 0.3);
+  }
+
   .cyber-border {
     position: relative;
   }
@@ -56,6 +60,17 @@
 
   .cyber-border:hover::before {
     opacity: 1;
+  }
+
+  .glow-text {
+    text-shadow: 0 0 10px currentColor, 0 0 20px currentColor;
+  }
+
+  .tech-grid {
+    background-image:
+      linear-gradient(rgba(59, 130, 246, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(59, 130, 246, 0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
   }
 }
 
@@ -75,4 +90,34 @@
 
 ::-webkit-scrollbar-thumb:hover {
   background: #475569;
+}
+
+/* Scanline effect */
+.scanlines::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.15),
+    rgba(0, 0, 0, 0.15) 1px,
+    transparent 1px,
+    transparent 2px
+  );
+  pointer-events: none;
+  z-index: 50;
+}
+
+/* Pulse animation for glows */
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(59, 130, 246, 0.6);
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
 }
