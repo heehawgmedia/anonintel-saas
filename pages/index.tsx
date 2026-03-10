@@ -15,6 +15,7 @@ const Home: NextPage = () => {
   const [email, setEmail] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitMessage, setSubmitMessage] = useState('');
+  const [checkoutLoading, setCheckoutLoading] = useState<string | null>(null);
 
   // Animated particle background
   useEffect(() => {
@@ -134,6 +135,35 @@ const Home: NextPage = () => {
       setSubmitMessage('Network error. Please try again.');
     } finally {
       setIsSubmitting(false);
+    }
+  };
+
+  const handleCheckout = async (plan: 'starter' | 'professional' | 'enterprise') => {
+    setCheckoutLoading(plan);
+    try {
+      const response = await fetch('/api/checkout', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          plan,
+          customerEmail: email || undefined,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        alert('Failed to start checkout. Please try again.');
+        setCheckoutLoading(null);
+      }
+    } catch (error) {
+      console.error('Checkout error:', error);
+      alert('Network error. Please try again.');
+      setCheckoutLoading(null);
     }
   };
 
@@ -561,8 +591,12 @@ const Home: NextPage = () => {
                     Basic dashboard
                   </li>
                 </ul>
-                <button className="w-full py-3 border border-blue-900/30 text-gray-300 hover:border-blue-500 hover:text-blue-400 rounded-lg transition hover:shadow-[0_0_15px_rgba(59,130,246,0.3)]">
-                  Get Started
+                <button
+                  onClick={() => handleCheckout('starter')}
+                  disabled={checkoutLoading === 'starter'}
+                  className="w-full py-3 border border-blue-900/30 text-gray-300 hover:border-blue-500 hover:text-blue-400 rounded-lg transition hover:shadow-[0_0_15px_rgba(59,130,246,0.3)] disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {checkoutLoading === 'starter' ? 'Redirecting...' : 'Get Started'}
                 </button>
               </div>
 
@@ -603,8 +637,12 @@ const Home: NextPage = () => {
                     Dedicated analyst
                   </li>
                 </ul>
-                <button className="w-full py-3 bg-gradient-to-r from-blue-600 to-emerald-600 hover:from-blue-700 hover:to-emerald-700 text-white font-medium rounded-lg transition shadow-[0_0_20px_rgba(59,130,246,0.4)]">
-                  Get Started
+                <button
+                  onClick={() => handleCheckout('professional')}
+                  disabled={checkoutLoading === 'professional'}
+                  className="w-full py-3 bg-gradient-to-r from-blue-600 to-emerald-600 hover:from-blue-700 hover:to-emerald-700 text-white font-medium rounded-lg transition shadow-[0_0_20px_rgba(59,130,246,0.4)] disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {checkoutLoading === 'professional' ? 'Redirecting...' : 'Get Started'}
                 </button>
               </div>
 
