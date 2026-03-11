@@ -11,6 +11,7 @@ interface Particle {
 }
 
 const Home: NextPage = () => {
+  const siteUrl = 'https://anonintel.com'; // TODO: update when domain is live
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [email, setEmail] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -54,6 +55,7 @@ const Home: NextPage = () => {
       ctx.strokeStyle = 'rgba(59, 130, 246, 0.05)';
       ctx.lineWidth = 1;
       const gridSize = 60;
+
       for (let x = 0; x < canvas.width; x += gridSize) {
         ctx.beginPath();
         ctx.moveTo(x, 0);
@@ -170,32 +172,84 @@ const Home: NextPage = () => {
   return (
     <>
       <Head>
+        {/* Primary Meta Tags */}
         <title>AnonIntel - Threat Intelligence for Biotech</title>
-        <meta name="description" content="AnonIntel monitors dark web, GitHub, and paste sites for threats against your biotech company. Get alerts on leaked credentials, trade secrets, and research data." />
-        <meta name="keywords" content="threat intelligence, cybersecurity, biotech, dark web monitoring, credential leaks, trade secrets protection" />
+        <meta name="title" content="AnonIntel - Threat Intelligence for Biotech" />
+        <meta name="description" content="AnonIntel provides real-time cybersecurity threat intelligence specifically for biotechnology companies. Monitor dark web, phishing, and IP theft." />
+        <meta name="keywords" content="threat intelligence, cybersecurity, biotech, dark web monitoring, IP protection, security alerts" />
+        <link rel="canonical" href={siteUrl} />
 
-        {/* Open Graph */}
-        <meta property="og:title" content="AnonIntel - Threat Intelligence for Biotech" />
-        <meta property="og:description" content="Protect your biotech research and intellectual property with intelligent threat monitoring." />
+        {/* Open Graph / Facebook */}
         <meta property="og:type" content="website" />
-        <meta property="og:image" content="/og-image.png" />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
+        <meta property="og:url" content={siteUrl} />
+        <meta property="og:title" content="AnonIntel - Cybersecurity Intelligence for Biotech" />
+        <meta property="og:description" content="Protect your biotech company with AI-powered threat intelligence. Real-time monitoring, actionable alerts." />
+        <meta property="og:image" content={`${siteUrl}/api/og`} />
+        <meta property="og:site_name" content="AnonIntel" />
 
-        {/* Twitter Card */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="AnonIntel - Threat Intelligence for Biotech" />
-        <meta name="twitter:description" content="Protect your biotech research and intellectual property with intelligent threat monitoring." />
-        <meta name="twitter:image" content="/og-image.png" />
+        {/* Twitter */}
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content={siteUrl} />
+        <meta property="twitter:title" content="AnonIntel - Threat Intelligence for Biotech" />
+        <meta property="twitter:description" content="Real-time cybersecurity intelligence tailored for biotech companies." />
+        <meta property="twitter:image" content={`${siteUrl}/api/og`} />
+        <meta name="twitter:site" content="@AnonIntel" />
+        <meta name="twitter:creator" content="@AnonIntel" />
 
-        {/* Theme */}
+        {/* Theme Color */}
         <meta name="theme-color" content="#020617" />
+
+        {/* Favicon (TODO: add actual favicon) */}
+        <link rel="icon" href="/favicon.ico" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+        {/* JSON-LD Structured Data */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'Organization',
+              name: 'AnonIntel',
+              url: siteUrl,
+              logo: `${siteUrl}/logo.png`,
+              description: 'Cybersecurity threat intelligence platform for biotechnology companies.',
+              foundingDate: '2025',
+              contactPoint: {
+                '@type': 'ContactPoint',
+                email: 'info@aibiojobs.com',
+                contactType: 'Customer Support',
+              },
+              offers: {
+                '@type': 'AggregateOffer',
+                lowPrice: '499',
+                priceCurrency: 'USD',
+                offers: [
+                  {
+                    '@type': 'Offer',
+                    name: 'Starter',
+                    price: '499',
+                    priceCurrency: 'USD',
+                    billingPeriod: 'P1M',
+                  },
+                  {
+                    '@type': 'Offer',
+                    name: 'Professional',
+                    price: '1299',
+                    priceCurrency: 'USD',
+                    billingPeriod: 'P1M',
+                  },
+                ],
+              },
+            }),
+          }}
+        />
       </Head>
 
-      {/* Animated background canvas */}
-      <canvas ref={canvasRef} className="fixed inset-0 pointer-events-none z-0" />
+      {/* Canvas background */}
+      <canvas ref={canvasRef} className="fixed inset-0 w-full h-full -z-10" />
 
-      <div className="min-h-screen bg-[#020617] text-gray-100 relative z-10">
+      <div className="relative min-h-screen bg-[#020617] text-gray-100">
         {/* Navigation */}
         <nav className="fixed top-0 w-full bg-[#020617]/95 backdrop-blur-md border-b border-blue-900/30 z-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -709,7 +763,7 @@ const Home: NextPage = () => {
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="Enter your work email"
                       required
-                      className="w-full px-4 py-3 bg-[#0a0a0a] border border-blue-900/30 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-S0 focus:border-transparent shadow-[0_0_15px_rgba(59,130,246,0.1)]"
+                      className="w-full px-4 py-3 bg-[#0a0a0a] border border-blue-900/30 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent shadow-[0_0_15px_rgba(59,130,246,0.1)]"
                     />
                   </div>
                   <button
@@ -762,18 +816,18 @@ const Home: NextPage = () => {
               <div>
                 <h4 className="text-white font-semibold mb-4">Company</h4>
                 <ul className="space-y-2 text-gray-400">
-                  <li><a href="#" className="hover:text-blue-400 transition hover:drop-shadow-[0_0_5px_rgba(59,130,246,0.5)]">About</a></li>
-                  <li><a href="#" className="hover:text-blue-400 transition hover:drop-shadow-[0_0_5px_rgba(59,130,246,0.5)]">Blog</a></li>
-                  <li><a href="#" className="hover:text-blue-400 transition hover:drop-shadow-[0_0_5px_rgba(59,130,246,0.5)]">Careers</a></li>
-                  <li><a href="#" className="hover:text-blue-400 transition hover:drop-shadow-[0_0_5px_rgba(59,130,246,0.5)]">Contact</a></li>
+                  <li><a href="/about" className="hover:text-blue-400 transition hover:drop-shadow-[0_0_5px_rgba(59,130,246,0.5)]">About</a></li>
+                  <li><a href="/privacy" className="hover:text-blue-400 transition hover:drop-shadow-[0_0_5px_rgba(59,130,246,0.5)]">Privacy</a></li>
+                  <li><a href="/terms" className="hover:text-blue-400 transition hover:drop-shadow-[0_0_5px_rgba(59,130,246,0.5)]">Terms</a></li>
+                  <li><a href="mailto:info@aibiojobs.com" className="hover:text-blue-400 transition hover:drop-shadow-[0_0_5px_rgba(59,130,246,0.5)]">Contact</a></li>
                 </ul>
               </div>
             </div>
             <div className="border-t border-blue-900/20 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
               <p className="text-gray-500 text-sm">© 2024 AnonIntel. All rights reserved.</p>
               <div className="flex space-x-6 mt-4 md:mt-0">
-                <a href="#" className="text-gray-500 hover:text-blue-400 transition">Privacy</a>
-                <a href="#" className="text-gray-500 hover:text-blue-400 transition">Terms</a>
+                <a href="/privacy" className="text-gray-500 hover:text-blue-400 transition">Privacy Policy</a>
+                <a href="/terms" className="text-gray-500 hover:text-blue-400 transition">Terms of Service</a>
               </div>
             </div>
           </div>
@@ -786,6 +840,9 @@ const Home: NextPage = () => {
           }
           .animate-pulse-slow {
             animation: pulse-slow 3s ease-in-out infinite;
+          }
+          .focus\:ring-blue-500:focus {
+            ring: 2px solid #3b82f6;
           }
         `}</style>
       </div>
